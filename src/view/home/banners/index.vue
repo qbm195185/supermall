@@ -2,11 +2,7 @@
 <template>
   <div>
     <Carousel v-model="value1"  loop autoplay>
-      <!-- <CarouselItem>
-          <div class="demo-carousel">1</div>
-      </CarouselItem> -->
-      <!-- <CarouselItem v-for="i in imges"><img src="i.image" alt="" srcset=""></CarouselItem> -->
-      <CarouselItem v-for="i in imges">
+      <CarouselItem v-for="i in banner">
           <div class="demo-carousel">
             <a :href="i.link"><img :src="i.image" alt="" /></a>
           </div>
@@ -24,45 +20,48 @@
     data () {
       return {
         value1: 0,
-        imges: []
-      };
+        images: []
+      }
     },
 
     props: {
-      
+      banner:{
+        type:Array,
+        default: ()=>Array,
+        required: true
+      }
     },
 
     created(){
-      // console.log(this.imges)
-      getHomeMultidata().then(res => {
-        // console.log(res)
-        // this.result = res
-        this.imges = res.data.banner.list
-        console.log(this.imges[0].image)
-      })
-    }
+      console.log(typeof(this.banner),"banner")
+    },
+    watch:{
+      banner: function(n,o){
+        this.images = n
+        this.update
+      }
+    },
     //components: {},
 
     //computed: {},
 
     //mounted: {},
 
-    //methods: {}
+    methods: {
+      update(){
+        console.log(this.images)
+      }
+    }
   }
-
 </script>
 <style>
 
   .demo-carousel{
-    height: 100px;
-  }
-
-  .demo-carousel{
-    height: 14%;
+    height: 12%;
     width: 100%;
   }
   img{
-    height: 14%;
+    height: 12%;
     width: 100%;
   }
 </style>
